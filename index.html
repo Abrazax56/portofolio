@@ -134,18 +134,18 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-md-6">
-            <form>
+            <form name="submit-to-google-sheet">
                <div class="mb-3">
                   <label for="name" class="form-label">Nama Lengkap</label>
-                  <input type="text" id="name" class="form-control" aria-descibedby="name">
+                  <input type="text" id="name" class="form-control" aria-descibedby="name" name="nama">
                </div>
                <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
-                  <input type="email" id="email" class="form-control" aria-descibedby="email">
+                  <input type="email" id="email" class="form-control" aria-descibedby="email" name="email">
                </div>
                <div class="mb-3">
                   <label for="pesan" class="form-label">Pesan</label>
-                  <textarea class="form-control" id="pesan" rows="3"></textarea>
+                  <textarea class="form-control" id="pesan" rows="3" name="pesan"></textarea>
                </div>
                <button type="submit" class="btn btn-primary">Kirim</button>
             </form>
@@ -163,5 +163,16 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="script.js"></script>
+    <script>
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbyZ5RLeHOVatLhrLE7nSoL22kEB5s9OTgyOIezKEJIvpYE2ROsYf35UBJMJ2D88WkknhQ/exec'
+      const form = document.forms['submit-to-google-sheet']
+
+      form.addEventListener('submit', e => {
+        e.preventDefault()
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(response => console.log('Success!', response))
+          .catch(error => console.error('Error!', error.message))
+      })
+    </script>
   </body>
 </html>
